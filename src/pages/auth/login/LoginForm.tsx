@@ -1,5 +1,3 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,13 +21,6 @@ const formSchema = z.object({
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters long." })
-    // .regex(/[A-Z]/, {
-    //   message: "Password must include at least one uppercase letter.",
-    // })
-    // .regex(/[a-z]/, {
-    //   message: "Password must include at least one lowercase letter.",
-    // })
-    // .regex(/[0-9]/, { message: "Password must include at least one number." })
 });
 
 export function LoginForm() {
@@ -42,7 +33,6 @@ export function LoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     loginUser(values)
   }
   return (
@@ -92,7 +82,7 @@ export function LoginForm() {
           type="submit"
           className="w-full shadow-lg relative !mt-5 py-5 font-normal bg-gradient-to-b from-secondary-purple-900 to-secondary-purple-600 rounded-xl hover:brightness-110 active:-bottom-[.125rem] active:shadow-none transition-all duration-300"
         >
-          Login
+          {isLoading ? <div className="loader w-6 h-6"></div> : "Login"}
         </Button>
       </form>
     </Form>

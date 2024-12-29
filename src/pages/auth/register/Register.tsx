@@ -5,6 +5,8 @@ import { useState } from "react";
 
 const Register = () => {
   const [isOTP, setIsOTP] = useState(false)
+  console.log(isOTP);
+  
 
   return (
     <div>
