@@ -16,7 +16,7 @@ const baseQuery: BaseQueryFn<FetchArgs, unknown, FetchBaseQueryError> = async (
 ) => {
   // const { dispatch } = api;
   const rawBaseQuery = fetchBaseQuery({
-    baseUrl: "https://dast-server-by-assembler.onrender.com", // o'zgaradi
+    baseUrl: "https://dast-server-by-assembler.onrender.com/", // o'zgaradi
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("x-auth-token"); // o'zgaradi
       if (token) {
@@ -40,6 +40,6 @@ const baseQueryWithRetry = retry(baseQuery, { maxRetries: 1 });
 export const api = createApi({
   reducerPath: "myApi",
   baseQuery: baseQueryWithRetry,
-  tagTypes: ["Category"], // o'zgaradi
+  tagTypes: ["User"],
   endpoints: () => ({}),
 });

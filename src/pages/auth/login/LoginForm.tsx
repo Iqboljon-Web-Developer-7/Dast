@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useLoginUserMutation } from "@/redux/api/auth";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -22,16 +23,17 @@ const formSchema = z.object({
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters long." })
-    .regex(/[A-Z]/, {
-      message: "Password must include at least one uppercase letter.",
-    })
-    .regex(/[a-z]/, {
-      message: "Password must include at least one lowercase letter.",
-    })
-    .regex(/[0-9]/, { message: "Password must include at least one number." })
+    // .regex(/[A-Z]/, {
+    //   message: "Password must include at least one uppercase letter.",
+    // })
+    // .regex(/[a-z]/, {
+    //   message: "Password must include at least one lowercase letter.",
+    // })
+    // .regex(/[0-9]/, { message: "Password must include at least one number." })
 });
 
 export function LoginForm() {
+  const [loginUser, {isLoading}] = useLoginUserMutation()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,6 +43,7 @@ export function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    loginUser(values)
   }
   return (
     <Form {...form}>
